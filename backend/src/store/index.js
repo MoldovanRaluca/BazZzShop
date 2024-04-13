@@ -1,6 +1,6 @@
 import {createStore} from "vuex"; //importam functia "createStore" din vuex
-import * as actions from './actions'
-import * as mutations from './mutations'
+import * as actions from './actions';
+import * as mutations from './mutations';
 
 const store = createStore({ //creeam instanta store si proprietatile acesteia
     state: {

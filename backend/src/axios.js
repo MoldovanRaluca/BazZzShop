@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 import store from "./store";
 import router from "./router/index.js";
 
@@ -14,8 +14,8 @@ axiosClient.interceptors.request.use(config => {
 axiosClient.interceptors.response.use(response => {
     return response;
 }, error => {
-    if (error.response && error.response.status === 401) {
-        store.commit('setToken', null)
+    if (error.response.status === 401) {
+        sessionStorage.removeItem('TOKEN')
         router.push({name: 'login'})
     }
     console.error(error);
