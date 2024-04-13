@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +22,7 @@ class AuthController extends Controller
             ], 422);
         }
 
-        /** @var User $user */
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         if (!$user->is_admin) {//daca nu e admin
             Auth::logout();//deconectare
@@ -39,9 +38,8 @@ class AuthController extends Controller
 
     }
 
-    public function logout(): \Illuminate\Http\Response|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
-    {
-        /** @var User $user */
+    public function logout(){
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $user->currentAccessToken()->delete();
 
