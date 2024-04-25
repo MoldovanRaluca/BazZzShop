@@ -97,8 +97,10 @@
 import {ref} from 'vue';
 import {LockClosedIcon} from '@heroicons/vue/solid';
 import GuestLayout from "../components/GuestLayout.vue";
+import {useRouter} from 'vue-router'
 import store from "../store";
-import router from "../router";
+
+const router = useRouter();
 
 let loading = ref(false);
 let errorMsg = ref("");
@@ -110,15 +112,20 @@ const user = {
 }
 
 function login() {
-    loading.value = true;
-    store.dispatch('login', user)
-        .then(() => {
-            loading.value = false;
-            router.push({name: 'app.dashboard'})
-        })
-        .catch(({response}) => {
-            loading.value = false;
-            errorMsg.value = response.data.message;
-        })
+  loading.value = true;
+  store.dispatch('login', user)
+      .then(() => {
+        loading.value = false;
+        router.push({name: 'app.dashboard'})
+      })
+      .catch(error => {
+        loading.value = false;
+        if (error.response && error.response.data && error.response.data.message) {
+          errorMsg.value = error.response.data.message;
+        } else {
+          errorMsg.value = 'An error occurred while processing your request.';
+        }
+      });
 }
+
 </script>

@@ -3,7 +3,8 @@ import store from "./store";
 import router from "./router/index.js";
 
 const axiosClient = axios.create({
-    baseURL:'http://localhost:8000/api'
+    //baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`
+    baseURL:`http://localhost:8000/api`
 })
 
 axiosClient.interceptors.request.use(config => {
@@ -18,7 +19,7 @@ axiosClient.interceptors.response.use(response => {
         sessionStorage.removeItem('TOKEN')
         router.push({name: 'login'})
     }
-    console.error(error);
+     console.error(error);
 })
 
 export default axiosClient;
